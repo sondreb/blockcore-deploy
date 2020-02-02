@@ -1,38 +1,52 @@
 name: Deployment
 
-on: ['deployment']
+on: ["deployment"]
 
 jobs:
   deployment:
     name: Deploy ${{ github.event.deployment.payload.version }} to ${{ github.event.deployment.payload.chain }}
-    runs-on: 'ubuntu-latest'
+    runs-on: "ubuntu-latest"
 
     steps:
-    - name: 'deployment pending'
-      uses: 'deliverybot/deployment-status@master'
-      with:
-        state: 'pending'
-        token: '${{ github.token }}'
+      - name: "deployment pending"
+        uses: "deliverybot/deployment-status@master"
+        with:
+          state: "pending"
+          token: "${{ github.token }}"
 
+      - name: deploy ${{ github.event.deployment.payload.chain }}
+        run: |
+          echo "environment - ${{ github.event.deployment.environment }}"
+          echo "payload - ${{ github.event.deployment.payload }}"
+          echo "chain - ${{ github.event.deployment.payload.chain }}"
+          echo "version - ${{ github.event.deployment.payload.version }}"
 
-    - name: deploy ${{ github.event.deployment.payload.chain }}
-      run: |
-        echo "environment - ${{ github.event.deployment.task }}"
-        echo "payload - ${{ github.event.deployment.payload }}"
-        echo "chain - ${{ github.event.deployment.payload.chain }}"
-        echo "version - ${{ github.event.deployment.payload.version }}"
+      - name: Deploy Explorer
+        if: ${{ github.event.deployment.environment }} == 'explorer'
+        run: |
+          echo "environment - ${{ github.event.deployment.environment }}"
+          echo "payload - ${{ github.event.deployment.payload }}"
+          echo "chain - ${{ github.event.deployment.payload.chain }}"
+          echo "version - ${{ github.event.deployment.payload.version }}"
 
+      - name: Deploy Indexer
+        if: ${{ github.event.deployment.environment }} == 'indexer'
+        run: |
+          echo "environment - ${{ github.event.deployment.environment }}"
+          echo "payload - ${{ github.event.deployment.payload }}"
+          echo "chain - ${{ github.event.deployment.payload.chain }}"
+          echo "version - ${{ github.event.deployment.payload.version }}"
 
-    - name: 'deployment success'
-      if: success()
-      uses: 'deliverybot/deployment-status@master'
-      with:
-        state: 'success'
-        token: '${{ github.token }}'
+      - name: "deployment success"
+        if: success()
+        uses: "deliverybot/deployment-status@master"
+        with:
+          state: "success"
+          token: "${{ github.token }}"
 
-    - name: 'deployment failure'
-      if: failure()
-      uses: 'deliverybot/deployment-status@master'
-      with:
-        state: 'failure'
-        token: '${{ github.token }}'
+      - name: "deployment failure"
+        if: failure()
+        uses: "deliverybot/deployment-status@master"
+        with:
+          state: "failure"
+          token: "${{ github.token }}"
