@@ -22,7 +22,7 @@ jobs:
           echo "version - ${{ github.event.deployment.payload.version }}"
 
       - name: Deploy Explorer
-        if: ${{ github.event.deployment.environment }} == 'explorer'
+        if: github.event.deployment.environment == 'explorer'
         run: |
           echo "environment - ${{ github.event.deployment.environment }}"
           echo "payload - ${{ github.event.deployment.payload }}"
@@ -30,7 +30,7 @@ jobs:
           echo "version - ${{ github.event.deployment.payload.version }}"
 
       - name: Deploy Indexer
-        if: ${{ github.event.deployment.environment }} == 'indexer'
+        if: github.event.deployment.environment == 'indexer'
         run: |
           echo "environment - ${{ github.event.deployment.environment }}"
           echo "payload - ${{ github.event.deployment.payload }}"
