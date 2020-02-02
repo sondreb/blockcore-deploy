@@ -11,26 +11,22 @@ production:
 #   production_environment: false
 
 btc:
-  environment: production
+  environment: btc
   description: Deploy Indexer to btc.indexer.blockcore.net
   payload:
     chain: "BTC"
+    version: "v0.0.2"
 
 city:
-  environment: production
+  environment: city
   description: Deploy Indexer to city.indexer.blockcore.net
   payload:
     chain: "CITY"
-
+    version: "v0.0.2"
 
 xds:
-  environment: production
+  environment: xds
   description: Deploy Indexer to xds.indexer.blockcore.net
   payload:
     chain: "XDS"
-
-canary:
-  environment: production
-  description: Deploy to production with %15 traffic.
-  payload:
-    traffic: 15
+    version: "v0.0.2"
