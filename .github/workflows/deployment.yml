@@ -1,10 +1,10 @@
-# .github/workflows/deployment.yml
 name: Deployment
 
 on: ['deployment']
 
 jobs:
   deployment:
+    name: Deploy ${{ github.event.deployment.payload.version }} to ${{ github.event.deployment.payload.chain }}
     runs-on: 'ubuntu-latest'
 
     steps:
@@ -14,11 +14,14 @@ jobs:
         state: 'pending'
         token: '${{ github.token }}'
 
-    - name: deploy
+
+    - name: deploy ${{ github.event.deployment.payload.chain }}
       run: |
         echo "environment - ${{ github.event.deployment.task }}"
         echo "payload - ${{ github.event.deployment.payload }}"
         echo "chain - ${{ github.event.deployment.payload.chain }}"
+        echo "version - ${{ github.event.deployment.payload.version }}"
+
 
     - name: 'deployment success'
       if: success()

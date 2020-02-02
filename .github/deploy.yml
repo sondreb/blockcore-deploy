@@ -1,8 +1,8 @@
 # View examples and documentation at https://deliverybot.dev/docs/
-production:
-  environment: production
-  #required_contexts: ["ci"] # Can be used to avoid a deployment to production if CI/PR build has failed.
-  production_environment: true
+# production:
+#   environment: production
+#   #required_contexts: ["ci"] # Can be used to avoid a deployment to production if CI/PR build has failed.
+#   production_environment: true
 
 # We'll deploy to staging environment whenever a commit comes into master.
 # staging:
